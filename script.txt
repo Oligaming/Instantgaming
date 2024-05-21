@@ -1,0 +1,129 @@
+// ==UserScript==
+// @name         Instant Gaming Auto Giveaway
+// @description  A script that automatically participate in Instant-Gaming's giveaways. Made by enzomtp, improved by Oligaming.
+// @version      1.2
+// @author       enzomtp, Oligaming
+// @namespace    https://github.com/Oligaming/Instantgaming
+// @match        *://www.instant-gaming.com/*/giveaway/*
+// @match        *://djifcc.fr/test/start.php
+// @run-at       document-idle
+// @grant        GM_registerMenuCommand
+// @grant        GM_openInTab
+// @license      MIT
+// ==/UserScript==
+
+(function() {
+  "use strict";
+
+  function participate(){
+    const participate = document.querySelector("button.button.validate");
+    if (participate !== null) {
+      participate.click();
+      setTimeout(() => window.close(), 250);
+    }
+  }
+
+  function socials(){
+    const socials = document.querySelectorAll("a.button.reward.alerts")
+    socials.forEach((e) => e.click())
+  }
+
+  function openGiveawayURLsSequentially(index = 0) {
+    const giveawayNames = [
+        "AYPIERRE",
+        "BOBLENNON",
+        "PIXIA",
+        "chaouki",
+        "MAFIASTUNTING",
+        "INSTANTGAMING",
+        "SUPREMELEADER",
+        "ICONOBLAST",
+        "bugland",
+        "GAMEMOVIELAND",
+        "CODQG",
+        "NALFEINN",
+        "VARG",
+        "L0LKHALIA",
+        "skyyart",
+        "SIPHANO",
+        "ALKOR",
+        "SEGMENT",
+        "BILLYCHEROKEE",
+        "LYNX",
+        "ZONALEROS",
+        "GUIGUI",
+        "PORAID",
+        "PORTALGAMER",
+        "INSTANTGAMINGPT",
+        "TOMBIE",
+        "muusoo",
+        "xariel",
+        "POKEMONMILLENNIUM",
+        "AQUIYAHORA",
+        "PIVI",
+        "Seals311",
+        "vicio",
+        "dutygameplays",
+        "INSTANTGAMINGITALIA",
+        "INFOPOINT-ITALIA",
+        "FROZ3N",
+        "QDSS",
+        "ELOTRIX",
+        "NYKK3",
+        "PLAYERINSIDE",
+        "ILGATTOSULTUBO",
+        "FRANCESCOPARDINI",
+        "NU89",
+        "ITERMOSIFONI",
+        "CORYPHEUS",
+        "THETJI",
+        "deladysigner",
+        "KURU",
+        "GONCALOFROES",
+        "HOROKUSSA",
+        "biffa",
+        "K0MPA",
+        "gringo_afc",
+        "kree",
+        "howimetyourcat",
+        "JOFRIK99",
+        "instantgamingde",
+        "INSTANTGAMINGPL",
+        "KAMUSLOL",
+        "laurabbyx",
+        "benzaie",
+        "snedgie",
+        "mitasims",
+        "officialinvictus",
+        "beefysmashdoods",
+        "GCA",
+        "tahva",
+        "frankieslair",
+        "GIORNOGAMING",
+        "SOLOUMIDO",
+        "cooptv",
+        "GAMERSITACOMMUNITY",
+        "queltaleale",
+        "CYBERLUK",
+        "STELIUS"
+    ];
+    if (index < giveawayNames.length) {
+      const url = `https://instant-gaming.com/fr/giveaway/${giveawayNames[index]}?igr=gamer-57ef54`;
+      const win = GM_openInTab(url, false);
+      setTimeout(() => {
+        win.close();
+        openGiveawayURLsSequentially(index + 1);
+      }, 250);
+    }
+  }
+
+  GM_registerMenuCommand("Participate in All Giveaways Sequentially", () => openGiveawayURLsSequentially());
+
+  if (window.location.href.includes("djifcc.fr/test/start.php")) {
+    openGiveawayURLsSequentially();
+  }
+
+  participate();
+  socials();
+
+})();
